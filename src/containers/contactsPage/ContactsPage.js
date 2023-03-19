@@ -80,7 +80,7 @@ export const ContactsPage = (props) => {
       <section>
         <h2>Contacts</h2>
         <TileList 
-        object={props.contact} // before ----> find out contact={contact}
+        object={props.contact} 
         />
       </section>
     </div>

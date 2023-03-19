@@ -1,8 +1,10 @@
-import { NavLink, Redirect, Route, Switch } from "react-router-dom";
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import React, {useState} from "react";
 
 import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
+import { CartPage } from "./containers/cartPage/CartPage";
 import { ContactsPage } from "./containers/contactsPage/ContactsPage";
+import { NavLink } from 'react-router-dom';
 
 function App() {
   /*
@@ -16,6 +18,7 @@ function App() {
   const ROUTES = {
     CONTACTS: "/contacts",
     APPOINTMENTS: "/appointments",
+    CART: "/cart",
   };
   /*
   Implement functions to add data to
@@ -34,40 +37,20 @@ function App() {
 
       });
   }
-  return (
+  return  (
     <>
-      <nav>
-        <NavLink to={ROUTES.CONTACTS} activeClassName="active">
-          Contacts
-        </NavLink>
-        <NavLink to={ROUTES.APPOINTMENTS} activeClassName="active">
-          Appointments
-        </NavLink>
-      </nav>
-      <main>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to={ROUTES.CONTACTS} />
-          </Route>
-          <Route path={ROUTES.CONTACTS}>
-             {/* Add props to ContactsPage */}
-            <ContactsPage  
-            contact={contact}
-            addNewContact={addNewContact}  
-            />
-          </Route>
-          <Route path={ROUTES.APPOINTMENTS}>
-            {/* Add props to AppointmentsPage */}
-            <AppointmentsPage 
-            contact={contact}
-            appointment={appointment}
-            addNewAppointment={addNewAppointment}
-            />
-          </Route>
-        </Switch>
-      </main>
-    </>
+    <nav>
+      <NavLink to={ROUTES.CONTACTS}>Contacts</NavLink>
+      <NavLink to={ROUTES.APPOINTMENTS}>Appointments</NavLink>
+    </nav>
+     <Routes>
+      <Route path='/' element={<ContactsPage contact={contact} addNewContact={addNewContact} />} />
+     <Route path={ROUTES.CONTACTS} element={<ContactsPage contact={contact} addNewContact={addNewContact} />} />
+     <Route path={ROUTES.APPOINTMENTS} element={<AppointmentsPage contact={contact} appointment={appointment} addNewAppointment={addNewAppointment}/>} />
+     </Routes>
+     </>
   );
+  
 }
 
 export default App;
